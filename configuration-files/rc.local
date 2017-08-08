@@ -11,6 +11,10 @@
 #
 # By default this script does nothing.
 
+exec 2> /tmp/tc.local.log
+exec 1>&2
+set -x
+
 # Print the IP address
 _IP=$(hostname -I) || true
 if [ "$_IP" ]; then
