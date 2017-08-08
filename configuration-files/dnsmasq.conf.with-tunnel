@@ -3,7 +3,7 @@
 # http://www.thekelleys.org.uk/dnsmasq/docs/dnsmasq.conf.example
 
  # Set up your local domain here
-domain=raspberry.local
+domain=unknown.local
 resolv-file=/etc/resolv.dnsmasq
 min-port=4096
 server=8.8.8.8

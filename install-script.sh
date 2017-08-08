@@ -1,9 +1,9 @@
 #!/bin/bash
 
 #
-# Wi-Fi-Pi-install-script-Pi-3.sh
+# install-script.sh
 #
-# @version    2.0 2017-01-24
+# @version    2.1 2017-08-08
 # @copyright  Copyright (c) 2014-2017 Martin Sauter, martin.sauter@wirelessmoves.com
 # @license    GNU General Public License v2
 # @since      Since Release 1.0
@@ -31,7 +31,8 @@
 # 2.0    New version of this script for hte Raspberry Pi 3 with a
 #        built-in Wi-Fi network interface that does not require
 #        a special hostapd executable.
-#        
+#
+# 2.1    Updated script
 #
 ##############################################################################
 # IMPORTANT: This script significantly changes the network configuration
@@ -61,23 +62,6 @@ echo "#### Wi-Fi Pi Access Point and VPN Installation"
 echo "###################################################"
 echo ""
 
-#### General Pi Setup
-#### TO BE DONE MANUALLY BEFORE RUNNING THIS SCRIPT!!!
-
-#sudo raspi-config --> change locale, etc.
-#sudo reboot
-
-#### After the reboot install and configure all necessary components
-#######################################################################
-
-echo "###############################################################"
-echo "IMPORTANT: The script requires you to change the Raspberry Pi"
-echo "default password as otherwise the setup is not secure."
-echo "###############################################################"
-
-passwd pi
-
-
 echo ""
 echo "#################################################################"
 echo " Updating all packages to the latest version and removing the"
@@ -92,13 +76,6 @@ apt-get -y upgrade
 
 apt-get -y install rpi-update
 rpi-update
-
-echo ""
-echo "###############################################################"
-echo "#### Unpacking configuration files"
-echo "###############################################################"
-
-tar xvzf wifipi.tar
 
 #per default all configuration files are read only except for the owner
 chmod 644 ./configuration-files/*
@@ -132,7 +109,7 @@ echo "########################################################"
 apt-get -y install hostapd
 
 #copy access point configuration file
-cp hostapd.conf.pi3 /etc/hostapd/hostapd.conf
+cp hostapd.conf /etc/hostapd/hostapd.conf
 
 #put a modified action_wpa.sh in lace to fix wpa supplicant misbehavior with two Wi-Fi interfaces
 cp action_wpa.sh /etc/wpa_supplicant/action_wpa.sh
@@ -212,8 +189,8 @@ echo "done..."
 echo ""
 
 #copy VPN start and stop batch files to upper directory
-cp start* ..
-cp stop* ..
+cp start* /home/pi/
+cp stop* /home/pi/
 
 echo ""
 echo "#####################################################"
